@@ -9,6 +9,7 @@ const scheduleSchema = new mongoose.Schema({
   quota: Number,
   status: Boolean,
   date: String, // "2025-04-22"
+  admin: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" }
 });
 
 module.exports = mongoose.model("Schedule", scheduleSchema);
