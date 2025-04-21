@@ -84,21 +84,21 @@ exports.createSchedules = async (req, res) => {
 exports.getAllSchedules = async (req, res) => {
   try {
     const schedules = await Schedule.find()
-      .populate("doctor_id", "name")
+      // .populate("doctor_id", "name")
       .sort({ date: 1 });
 
-    const formatted = schedules.map((item) => ({
-      _id: item._id,
-      doctor_name: item.doctor_id?.name || "N/A",
-      day: item.day,
-      date: item.date,
-      time_start: item.time_start,
-      time_finish: item.time_finish,
-      quota: item.quota,
-      status: item.status,
-    }));
+    // const formatted = schedules.map((item) => ({
+    //   _id: item._id,
+    //   doctor_name: item.doctor_id?.name || "N/A",
+    //   day: item.day,
+    //   date: item.date,
+    //   time_start: item.time_start,
+    //   time_finish: item.time_finish,
+    //   quota: item.quota,
+    //   status: item.status,
+    // }));
 
-    res.json({ message: "berhasil", body: formatted });
+    res.json({ message: "berhasil", body: schedules });
   } catch (err) {
     res.status(500).json({ message: "Gagal mengambil jadwal" });
   }
