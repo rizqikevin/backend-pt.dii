@@ -45,9 +45,9 @@ exports.createSchedules = async (req, res) => {
     const start = moment(startDate.trim());
     const end = moment(endDate.trim());
 
-    const hariDalamMoment = daysMap[day.toLowerCase()];
-    console.log(day.toLowerCase(), hariDalamMoment);
-    if (!hariDalamMoment) {
+    const daysInMoment = daysMap[day.toLowerCase()];
+    console.log(day.toLowerCase(), daysInMoment);
+    if (!daysInMoment) {
       return res.status(400).json({ message: "Format hari tidak valid" });
     }
 
@@ -55,7 +55,7 @@ exports.createSchedules = async (req, res) => {
     const schedules = [];
 
     while (current.isSameOrBefore(end)) {
-      if (current.day() === hariDalamMoment) {
+      if (current.day() === daysInMoment) {
         schedules.push({
           doctor_id,
           doctor_name: doctor.name,

@@ -9,48 +9,48 @@ connectDB();
 
 async function seed() {
   try {
-    await Doctor.deleteMany({});
-    // await Schedule.deleteMany({});
+    // await Doctor.deleteMany({});
+    await Schedule.deleteMany({});
 
-    const doctors = [
-      {
-        name: "Dr. Sarah Salsabila",
-        gender: "Female",
-        birthdate: "1993-03-10",
-        work_start_time: "13:00",
-        work_end_time: "15:00",
-      },
-      {
-        name: "Dr. Ahmad Nugraha",
-        gender: "Male",
-        birthdate: "1989-07-22",
-        work_start_time: "08:00",
-        work_end_time: "12:00",
-      },
-      {
-        name: "Dr. Nabila Zahra",
-        gender: "Female",
-        birthdate: "1990-01-15",
-        work_start_time: "09:00",
-        work_end_time: "11:00",
-      },
-      {
-        name: "Dr. Muhammad Rizki",
-        gender: "Male",
-        birthdate: "1995-06-30",
-        work_start_time: "14:00",
-        work_end_time: "16:00",
-      },
-      {
-        name: "Dr. Dwi Hidayat",
-        gender: "Male",
-        birthdate: "1988-12-05",
-        work_start_time: "10:00",
-        work_end_time: "13:00",
-      },
-    ];
+    // const doctors = [
+    //   {
+    //     name: "Dr. Sarah Salsabila",
+    //     gender: "Female",
+    //     birthdate: "1993-03-10",
+    //     work_start_time: "13:00",
+    //     work_end_time: "15:00",
+    //   },
+    //   {
+    //     name: "Dr. Ahmad Nugraha",
+    //     gender: "Male",
+    //     birthdate: "1989-07-22",
+    //     work_start_time: "08:00",
+    //     work_end_time: "12:00",
+    //   },
+    //   {
+    //     name: "Dr. Nabila Zahra",
+    //     gender: "Female",
+    //     birthdate: "1990-01-15",
+    //     work_start_time: "09:00",
+    //     work_end_time: "11:00",
+    //   },
+    //   {
+    //     name: "Dr. Muhammad Rizki",
+    //     gender: "Male",
+    //     birthdate: "1995-06-30",
+    //     work_start_time: "14:00",
+    //     work_end_time: "16:00",
+    //   },
+    //   {
+    //     name: "Dr. Dwi Hidayat",
+    //     gender: "Male",
+    //     birthdate: "1988-12-05",
+    //     work_start_time: "10:00",
+    //     work_end_time: "13:00",
+    //   },
+    // ];
 
-    await Doctor.insertMany(doctors);
+    // await Doctor.insertMany(doctors);
     // const schedule = new Schedule({
     //   doctor_id: doctor._id,
     //   doctor_name: doctor.name,
