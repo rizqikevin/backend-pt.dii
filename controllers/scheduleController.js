@@ -3,13 +3,13 @@ const Schedule = require("../models/Schedule");
 const moment = require("moment");
 
 const daysMap = {
-  senin: "Monday",
-  selasa: "Tuesday",
-  rabu: "Wednesday",
-  kamis: "Thursday",
-  jumat: "Friday",
-  sabtu: "Saturday",
-  minggu: "Sunday",
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6,
+  sunday: 0,
 };
 
 exports.createSchedules = async (req, res) => {
@@ -46,6 +46,7 @@ exports.createSchedules = async (req, res) => {
     const end = moment(endDate.trim());
 
     const hariDalamMoment = daysMap[day.toLowerCase()];
+    console.log(day.toLowerCase(), hariDalamMoment);
     if (!hariDalamMoment) {
       return res.status(400).json({ message: "Format hari tidak valid" });
     }
@@ -54,7 +55,7 @@ exports.createSchedules = async (req, res) => {
     const schedules = [];
 
     while (current.isSameOrBefore(end)) {
-      if (current.format("dddd") === hariDalamMoment) {
+      if (current.day() === hariDalamMoment) {
         schedules.push({
           doctor_id,
           doctor_name: doctor.name,
@@ -69,11 +70,22 @@ exports.createSchedules = async (req, res) => {
       current.add(1, "days");
     }
 
-    await Schedule.insertMany(schedules);
+    const savedSchedules = await Schedule.insertMany(schedules);
+    const formatted = savedSchedules.map(sch => ({
+      id: sch._id,
+      doctor_id: sch.doctor_id,
+      doctor_name: sch.doctor_name,
+      day: sch.day,
+      time_start: sch.time_start,
+      time_finish: sch.time_finish,
+      quota: sch.quota,
+      status: sch.status,
+      date: sch.date
+    }));
 
     res.status(201).json({
       message: "Jadwal berhasil dibuat",
-      data: schedules,
+      data: formatted,
     });
   } catch (err) {
     console.error(err);
@@ -86,17 +98,6 @@ exports.getAllSchedules = async (req, res) => {
     const schedules = await Schedule.find()
       // .populate("doctor_id", "name")
       .sort({ date: 1 });
-
-    // const formatted = schedules.map((item) => ({
-    //   _id: item._id,
-    //   doctor_name: item.doctor_id?.name || "N/A",
-    //   day: item.day,
-    //   date: item.date,
-    //   time_start: item.time_start,
-    //   time_finish: item.time_finish,
-    //   quota: item.quota,
-    //   status: item.status,
-    // }));
 
     res.json({ message: "berhasil", body: schedules });
   } catch (err) {
